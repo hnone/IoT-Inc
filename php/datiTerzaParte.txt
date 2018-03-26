@@ -1,0 +1,31 @@
+Pierfabio Parciante 2018-03-25 18:13:03
+
+1) DATI IMPIANTI
+
+
+NOME IMPIANTO: FrenniImpianto
+
+Sensore	Data			Valore	Errore	Messaggio
+104	2018-03-25 16:00:00	83.000		OK
+104	2018-03-24 11:00:00	67.000		OK
+104	2018-03-24 00:00:00	45.340		OK
+148	2018-03-25 16:59:06	45.000		OK
+
+
+NOME IMPIANTO: PROVCAA
+
+Sensore	Data			Valore	Errore	Messaggio
+
+
+
+
+2) DATI AMBIENTI
+
+
+3) DATI SENSORI
+
+Sensore	Data			Valore	Errore	Messaggio
+104	2018-03-25 16:00:00	83.000		OK
+104	2018-03-24 11:00:00	67.000		OK
+104	2018-03-24 00:00:00	45.340		OK
+148	2018-03-25 16:59:06	45.000		OK
