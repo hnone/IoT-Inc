@@ -1,8 +1,8 @@
 <?php
 include 'php/session.php';
-include 'DAOCliente.php';
-include 'Cliente.php';
+include '/DAO/DAOCliente.php';
 include '/DAO/DAOImpianto.php';
+include '/Modelli/Cliente.php';
 include '/Modelli/Impianto.php';
 
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
