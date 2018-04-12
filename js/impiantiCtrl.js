@@ -24,7 +24,6 @@ app.controller('ImpiantiCtrl', function($scope, $mdDialog, $mdMedia, $http, $rou
             $mdDialog.show({
               controllerAs: 'impiantiList',
               clickOutsideToClose: true,
-              //scope: $scope,
               preserveScope: true,
               closeByDocument: false,
               autoWrap: true,
@@ -50,15 +49,8 @@ app.controller('ImpiantiCtrl', function($scope, $mdDialog, $mdMedia, $http, $rou
                   }
                 }).
                 then(function onSuccess(response) {
-                  //console.log(sharedProperties.getIdImpianto());
-                  // Handle success
                   var data = response.data;
-                  var status = response.status;
-                  var statusText = response.statusText;
-                  var headers = response.headers;
-                  var config = response.config;
                   $scope.list_imp = data;
-
                   $scope.addCliente = function(id, cliente) {
                     sharedProperties.setIdCliente(id);
                     console.log(cliente);
@@ -91,23 +83,11 @@ app.controller('ImpiantiCtrl', function($scope, $mdDialog, $mdMedia, $http, $rou
           }
         }).
         then(function onSuccess(response) {
-          // Handle success
           var data = response.data;
-          var status = response.status;
-          var statusText = response.statusText;
-          var headers = response.headers;
-          var config = response.config;
           console.log(data);
           var currentPageTemplate = $route.current.templateUrl;
           $templateCache.remove(currentPageTemplate);
           $route.reload();
-        }, function onError(response) {
-          // Handle error
-          var data = response.data;
-          var status = response.status;
-          var statusText = response.statusText;
-          var headers = response.headers;
-          var config = response.config;
         });
       });
   };
@@ -167,12 +147,7 @@ app.controller('ImpiantiCtrl', function($scope, $mdDialog, $mdMedia, $http, $rou
                     }
                   }).
                   then(function onSuccess(response) {
-                    // Handle success
                     var data = response.data;
-                    var status = response.status;
-                    var statusText = response.statusText;
-                    var headers = response.headers;
-                    var config = response.config;
                     $scope.list_imp = data;
 
                     $scope.addCliente = function(id, cliente) {
@@ -194,21 +169,9 @@ app.controller('ImpiantiCtrl', function($scope, $mdDialog, $mdMedia, $http, $rou
               }
             }).
             then(function onSuccess(response) {
-              // Handle success
               var data = response.data;
-              var status = response.status;
-              var statusText = response.statusText;
-              var headers = response.headers;
-              var config = response.config;
               console.log(data);
               $scope.impiantiList.cliente = data;
-            }, function onError(response) {
-              // Handle error
-              var data = response.data;
-              var status = response.status;
-              var statusText = response.statusText;
-              var headers = response.headers;
-              var config = response.config;
             });
 
             $scope.add = function(cod, id) {
@@ -249,12 +212,7 @@ app.controller('ImpiantiCtrl', function($scope, $mdDialog, $mdMedia, $http, $rou
                       }
                     }).
                     then(function onSuccess(response) {
-                      // Handle success
                       var data = response.data;
-                      var status = response.status;
-                      var statusText = response.statusText;
-                      var headers = response.headers;
-                      var config = response.config;
                       console.log(data);
                       $http.post('/php/ImpiantiServices.php', {
                         cod: "getAutorizzazioni",
@@ -265,29 +223,10 @@ app.controller('ImpiantiCtrl', function($scope, $mdDialog, $mdMedia, $http, $rou
                         }
                       }).
                       then(function onSuccess(response) {
-                        // Handle success
                         var data = response.data;
-                        var status = response.status;
-                        var statusText = response.statusText;
-                        var headers = response.headers;
-                        var config = response.config;
                         parent.autorizzate = data;
                         $mdDialog.hide();
-                      }, function onError(response) {
-                        // Handle error
-                        var data = response.data;
-                        var status = response.status;
-                        var statusText = response.statusText;
-                        var headers = response.headers;
-                        var config = response.config;
                       });
-                    }, function onError(response) {
-                      // Handle error
-                      var data = response.data;
-                      var status = response.status;
-                      var statusText = response.statusText;
-                      var headers = response.headers;
-                      var config = response.config;
                     });
                   };
                   $scope.installaSensore = function(impiantiList) {
@@ -306,12 +245,7 @@ app.controller('ImpiantiCtrl', function($scope, $mdDialog, $mdMedia, $http, $rou
                       }
                     }).
                     then(function onSuccess(response) {
-                      // Handle success
                       var data = response.data;
-                      var status = response.status;
-                      var statusText = response.statusText;
-                      var headers = response.headers;
-                      var config = response.config;
                       console.log(data);
                       $http.post('/php/ImpiantiServices.php', {
                         cod: "getAutorizzazioni",
@@ -322,29 +256,10 @@ app.controller('ImpiantiCtrl', function($scope, $mdDialog, $mdMedia, $http, $rou
                         }
                       }).
                       then(function onSuccess(response) {
-                        // Handle success
                         var data = response.data;
-                        var status = response.status;
-                        var statusText = response.statusText;
-                        var headers = response.headers;
-                        var config = response.config;
                         parent.autorizzate = data;
                         $mdDialog.hide();
-                      }, function onError(response) {
-                        // Handle error
-                        var data = response.data;
-                        var status = response.status;
-                        var statusText = response.statusText;
-                        var headers = response.headers;
-                        var config = response.config;
                       });
-                    }, function onError(response) {
-                      // Handle error
-                      var data = response.data;
-                      var status = response.status;
-                      var statusText = response.statusText;
-                      var headers = response.headers;
-                      var config = response.config;
                     });
                   };
                   $scope.select = function(cod) {
@@ -381,15 +296,9 @@ app.controller('ImpiantiCtrl', function($scope, $mdDialog, $mdMedia, $http, $rou
                             }
                           })
                           .then(function onSuccess(response) {
-                            // Handle success
                             var data = response.data;
-                            var status = response.status;
-                            var statusText = response.statusText;
-                            var headers = response.headers;
-                            var config = response.config;
                             console.log(data);
                             $scope.list_imp = data;
-
                             $scope.setSensore = function(id, sensore) {
                               console.log(sensore);
                               sharedProperties.setIdSens(id);
@@ -417,12 +326,7 @@ app.controller('ImpiantiCtrl', function($scope, $mdDialog, $mdMedia, $http, $rou
                     }
                   }).
                   then(function onSuccess(response) {
-                    // Handle success
                     var data = response.data;
-                    var status = response.status;
-                    var statusText = response.statusText;
-                    var headers = response.headers;
-                    var config = response.config;
                     $scope.list_imp = data;
                     $scope.edit = function(cod, aut, id) {
                       //ADDIMPIANTO _ AMBIENTE _ SENSORE
@@ -436,12 +340,7 @@ app.controller('ImpiantiCtrl', function($scope, $mdDialog, $mdMedia, $http, $rou
                         }
                       }).
                       then(function onSuccess(response) {
-                        // Handle success
                         var data = response.data;
-                        var status = response.status;
-                        var statusText = response.statusText;
-                        var headers = response.headers;
-                        var config = response.config;
                         console.log(data);
                         $mdDialog.hide();
                         //AGGIORNA LA TABELLA
@@ -454,37 +353,11 @@ app.controller('ImpiantiCtrl', function($scope, $mdDialog, $mdMedia, $http, $rou
                           }
                         }).
                         then(function onSuccess(response) {
-                          // Handle success
                           var data = response.data;
-                          var status = response.status;
-                          var statusText = response.statusText;
-                          var headers = response.headers;
-                          var config = response.config;
                           parent.autorizzate = data;
-                        }, function onError(response) {
-                          // Handle error
-                          var data = response.data;
-                          var status = response.status;
-                          var statusText = response.statusText;
-                          var headers = response.headers;
-                          var config = response.config;
                         });
-                      }, function onError(response) {
-                        // Handle error
-                        var data = response.data;
-                        var status = response.status;
-                        var statusText = response.statusText;
-                        var headers = response.headers;
-                        var config = response.config;
                       });
                     };
-                  }, function onError(response) {
-                    // Handle error
-                    var data = response.data;
-                    var status = response.status;
-                    var statusText = response.statusText;
-                    var headers = response.headers;
-                    var config = response.config;
                   });
                 }
               });
@@ -497,7 +370,6 @@ app.controller('ImpiantiCtrl', function($scope, $mdDialog, $mdMedia, $http, $rou
               $mdDialog.show({
                 controllerAs: 'impiantiList',
                 clickOutsideToClose: true,
-                //scope: $scope,
                 preserveScope: true,
                 closeByDocument: false,
                 autoWrap: true,
@@ -524,21 +396,9 @@ app.controller('ImpiantiCtrl', function($scope, $mdDialog, $mdMedia, $http, $rou
                       }
                     }).
                     then(function onSuccess(response) {
-                      // Handle success
                       var data = response.data;
-                      var status = response.status;
-                      var statusText = response.statusText;
-                      var headers = response.headers;
-                      var config = response.config;
                       console.log(data);
                       $scope.impiantiList.nomeAmbiente = data;
-                    }, function onError(response) {
-                      // Handle error
-                      var data = response.data;
-                      var status = response.status;
-                      var statusText = response.statusText;
-                      var headers = response.headers;
-                      var config = response.config;
                     });
                   } else if (cod == "Sensore") {
                     $http.post('/php/ImpiantiServices.php', {
@@ -550,12 +410,7 @@ app.controller('ImpiantiCtrl', function($scope, $mdDialog, $mdMedia, $http, $rou
                       }
                     }).
                     then(function onSuccess(response) {
-                      // Handle success
                       var data = response.data;
-                      var status = response.status;
-                      var statusText = response.statusText;
-                      var headers = response.headers;
-                      var config = response.config;
                       $scope.impiantiList.id = angular.fromJson(data).id;
                       $scope.impiantiList.nomeSensoreInstallato = angular.fromJson(data).nome;
                       $scope.impiantiList.idAmbiente = angular.fromJson(data).idAmbiente;
@@ -574,21 +429,9 @@ app.controller('ImpiantiCtrl', function($scope, $mdDialog, $mdMedia, $http, $rou
                         }
                       }).
                       then(function onSuccess(response) {
-                        // Handle success
                         var data = response.data;
-                        var status = response.status;
-                        var statusText = response.statusText;
-                        var headers = response.headers;
-                        var config = response.config;
                         console.log(data);
                         $scope.impiantiList.nomeAmbiente = data;
-                      }, function onError(response) {
-                        // Handle error
-                        var data = response.data;
-                        var status = response.status;
-                        var statusText = response.statusText;
-                        var headers = response.headers;
-                        var config = response.config;
                       });
                       $http.post('/php/ImpiantiServices.php', {
                         cod: "getNomeSensore",
@@ -599,29 +442,10 @@ app.controller('ImpiantiCtrl', function($scope, $mdDialog, $mdMedia, $http, $rou
                         }
                       }).
                       then(function onSuccess(response) {
-                        // Handle success
                         var data = response.data;
-                        var status = response.status;
-                        var statusText = response.statusText;
-                        var headers = response.headers;
-                        var config = response.config;
                         console.log(data);
                         $scope.impiantiList.nomeSensore = data;
-                      }, function onError(response) {
-                        // Handle error
-                        var data = response.data;
-                        var status = response.status;
-                        var statusText = response.statusText;
-                        var headers = response.headers;
-                        var config = response.config;
                       });
-                    }, function onError(response) {
-                      // Handle error
-                      var data = response.data;
-                      var status = response.status;
-                      var statusText = response.statusText;
-                      var headers = response.headers;
-                      var config = response.config;
                     });
                   }
                   $scope.modificaAmbiente = function(cod, impiantiList) {
@@ -638,12 +462,7 @@ app.controller('ImpiantiCtrl', function($scope, $mdDialog, $mdMedia, $http, $rou
                       }
                     }).
                     then(function onSuccess(response) {
-                      // Handle success
                       var data = response.data;
-                      var status = response.status;
-                      var statusText = response.statusText;
-                      var headers = response.headers;
-                      var config = response.config;
                       console.log(data);
                       $http.post('/php/ImpiantiServices.php', {
                         cod: "getAutorizzazioni",
@@ -654,21 +473,9 @@ app.controller('ImpiantiCtrl', function($scope, $mdDialog, $mdMedia, $http, $rou
                         }
                       }).
                       then(function onSuccess(response) {
-                        // Handle success
                         var data = response.data;
-                        var status = response.status;
-                        var statusText = response.statusText;
-                        var headers = response.headers;
-                        var config = response.config;
                         parent.autorizzate = data;
                         $mdDialog.hide();
-                      }, function onError(response) {
-                        // Handle error
-                        var data = response.data;
-                        var status = response.status;
-                        var statusText = response.statusText;
-                        var headers = response.headers;
-                        var config = response.config;
                       });
                     }, function onError(response) {
                       // Handle error
@@ -693,12 +500,7 @@ app.controller('ImpiantiCtrl', function($scope, $mdDialog, $mdMedia, $http, $rou
                       }
                     }).
                     then(function onSuccess(response) {
-                      // Handle success
                       var data = response.data;
-                      var status = response.status;
-                      var statusText = response.statusText;
-                      var headers = response.headers;
-                      var config = response.config;
                       console.log(data);
                       $http.post('/php/ImpiantiServices.php', {
                         cod: "getAutorizzazioni",
@@ -709,29 +511,10 @@ app.controller('ImpiantiCtrl', function($scope, $mdDialog, $mdMedia, $http, $rou
                         }
                       }).
                       then(function onSuccess(response) {
-                        // Handle success
                         var data = response.data;
-                        var status = response.status;
-                        var statusText = response.statusText;
-                        var headers = response.headers;
-                        var config = response.config;
                         parent.autorizzate = data;
                         $mdDialog.hide();
-                      }, function onError(response) {
-                        // Handle error
-                        var data = response.data;
-                        var status = response.status;
-                        var statusText = response.statusText;
-                        var headers = response.headers;
-                        var config = response.config;
                       });
-                    }, function onError(response) {
-                      // Handle error
-                      var data = response.data;
-                      var status = response.status;
-                      var statusText = response.statusText;
-                      var headers = response.headers;
-                      var config = response.config;
                     });
                   };
                   $scope.select = function(cod) {
@@ -768,15 +551,10 @@ app.controller('ImpiantiCtrl', function($scope, $mdDialog, $mdMedia, $http, $rou
                             }
                           })
                           .then(function onSuccess(response) {
-                            // Handle success
                             var data = response.data;
-                            var status = response.status;
-                            var statusText = response.statusText;
-                            var headers = response.headers;
                             var config = response.config;
                             console.log(data);
                             $scope.list_imp = data;
-
                             $scope.setSensore = function(id, sensore) {
                               console.log(sensore);
                               sharedProperties.setIdSens(id);
@@ -804,12 +582,7 @@ app.controller('ImpiantiCtrl', function($scope, $mdDialog, $mdMedia, $http, $rou
                     }
                   }).
                   then(function onSuccess(response) {
-                    // Handle success
                     var data = response.data;
-                    var status = response.status;
-                    var statusText = response.statusText;
-                    var headers = response.headers;
-                    var config = response.config;
                     $scope.list_imp = data;
                     $scope.edit = function(cod, aut, id) {
                       //ADDIMPIANTO _ AMBIENTE _ SENSORE
@@ -823,12 +596,7 @@ app.controller('ImpiantiCtrl', function($scope, $mdDialog, $mdMedia, $http, $rou
                         }
                       }).
                       then(function onSuccess(response) {
-                        // Handle success
                         var data = response.data;
-                        var status = response.status;
-                        var statusText = response.statusText;
-                        var headers = response.headers;
-                        var config = response.config;
                         console.log(data);
                         $mdDialog.hide();
                         //AGGIORNA LA TABELLA
@@ -841,37 +609,11 @@ app.controller('ImpiantiCtrl', function($scope, $mdDialog, $mdMedia, $http, $rou
                           }
                         }).
                         then(function onSuccess(response) {
-                          // Handle success
                           var data = response.data;
-                          var status = response.status;
-                          var statusText = response.statusText;
-                          var headers = response.headers;
-                          var config = response.config;
                           parent.autorizzate = data;
-                        }, function onError(response) {
-                          // Handle error
-                          var data = response.data;
-                          var status = response.status;
-                          var statusText = response.statusText;
-                          var headers = response.headers;
-                          var config = response.config;
                         });
-                      }, function onError(response) {
-                        // Handle error
-                        var data = response.data;
-                        var status = response.status;
-                        var statusText = response.statusText;
-                        var headers = response.headers;
-                        var config = response.config;
                       });
                     };
-                  }, function onError(response) {
-                    // Handle error
-                    var data = response.data;
-                    var status = response.status;
-                    var statusText = response.statusText;
-                    var headers = response.headers;
-                    var config = response.config;
                   });
                 }
               });
@@ -888,13 +630,7 @@ app.controller('ImpiantiCtrl', function($scope, $mdDialog, $mdMedia, $http, $rou
                 }
               }).
               then(function onSuccess(response) {
-                // Handle success
                 var data = response.data;
-                var status = response.status;
-                var statusText = response.statusText;
-                var headers = response.headers;
-                var config = response.config;
-                //$scope.autorizzate = data;
                 //AGGIORNA LA TABELLA
                 $http.post('/php/ImpiantiServices.php', {
                   cod: "getAutorizzazioni",
@@ -905,28 +641,9 @@ app.controller('ImpiantiCtrl', function($scope, $mdDialog, $mdMedia, $http, $rou
                   }
                 }).
                 then(function onSuccess(response) {
-                  // Handle success
                   var data = response.data;
-                  var status = response.status;
-                  var statusText = response.statusText;
-                  var headers = response.headers;
-                  var config = response.config;
                   $scope.autorizzate = data;
-                }, function onError(response) {
-                  // Handle error
-                  var data = response.data;
-                  var status = response.status;
-                  var statusText = response.statusText;
-                  var headers = response.headers;
-                  var config = response.config;
                 });
-              }, function onError(response) {
-                // Handle error
-                var data = response.data;
-                var status = response.status;
-                var statusText = response.statusText;
-                var headers = response.headers;
-                var config = response.config;
               });
             };
 
@@ -939,38 +656,22 @@ app.controller('ImpiantiCtrl', function($scope, $mdDialog, $mdMedia, $http, $rou
               }
             }).
             then(function onSuccess(response) {
-              // Handle success
               var data = response.data;
-              var status = response.status;
-              var statusText = response.statusText;
-              var headers = response.headers;
-              var config = response.config;
               $scope.autorizzate = data;
-            }, function onError(response) {
-              // Handle error
-              var data = response.data;
-              var status = response.status;
-              var statusText = response.statusText;
-              var headers = response.headers;
-              var config = response.config;
             });
           },
           controllerAs: 'impiantiList',
           preserveScope: true,
           templateUrl: 'modifica_impianto.html',
           autoWrap: false,
-          //parent: angular.element(document.body),
-          //targetEvent: $event,
           clickOutsideToClose: true,
           locals: {
-            parent: $scope,
-            //terzaParte: _terzaParte
+            parent: $scope
           },
         })
         .then(
           function(answer) {
             console.log($cod);
-            //console.log(answer);
             $http.post('/impianti.php', {
                 cod: $cod,
                 id: angular.fromJson(_impianto).id,
@@ -983,25 +684,12 @@ app.controller('ImpiantiCtrl', function($scope, $mdDialog, $mdMedia, $http, $rou
                 }
               })
               .then(function onSuccess(response) {
-                // Handle success
                 var data = response.data;
-                var status = response.status;
-                var statusText = response.statusText;
-                var headers = response.headers;
-                var config = response.config;
                 console.log(angular.fromJson(_impianto).id);
-                //  console.log(data);
                 console.log(sharedProperties.getIdCliente());
                 var currentPageTemplate = $route.current.templateUrl;
                 $templateCache.remove(currentPageTemplate);
                 $route.reload();
-              }, function onError(response) {
-                // Handle error
-                var data = response.data;
-                var status = response.status;
-                var statusText = response.statusText;
-                var headers = response.headers;
-                var config = response.config;
               });
           })
     };
