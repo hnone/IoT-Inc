@@ -27,7 +27,7 @@ app.controller('ClientiCtrl', function($scope, $mdDialog, $mdMedia, $http, $rout
         },
       })
       .then(function(answer) {
-        $http.post('/clienti.php', {
+        $http.post('/php/ClientiServices.php', {
           cod: "add",
           nome: answer.nome,
           cognome: answer.cognome,
@@ -125,7 +125,7 @@ app.controller('ClientiCtrl', function($scope, $mdDialog, $mdMedia, $http, $rout
             console.log($cod);
             console.log(angular.fromJson(_cliente).id);
             //console.log(answer);
-            $http.post('/clienti.php', {
+            $http.post('/php/ClientiServices.php', {
               cod: $cod,
               id: angular.fromJson(_cliente).id,
               nome: answer.nome,
