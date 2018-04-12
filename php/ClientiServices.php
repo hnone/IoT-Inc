@@ -6,6 +6,9 @@ include('DAOAmbiente.php');
 include('Ambiente.php');
 include('DAOSensoreInstallato.php');
 include('SensoreInstallato.php');
+include('DAOCliente.php');
+include('Cliente.php');
+$DAOCliente = new DAOCliente();
 $DAOImpianto = new DAOImpianto();
 $DAOAmbiente = new DAOAmbiente();
 $DAOSensoreInstallato = new DAOSensoreInstallato();
@@ -13,7 +16,31 @@ $DAOSensoreInstallato = new DAOSensoreInstallato();
 if($_SERVER["REQUEST_METHOD"] == "POST") {
   $postdata = file_get_contents("php://input");
   $request = json_decode($postdata);
-  if ($request->cod == "getAutorizzazioni") {
+  if ($request->cod == "add") {
+    $DAOCliente -> insert(new Cliente($request->nome, $request->cognome, $request->partitaIva, $request->email, $request->password));
+  } else if ($request->cod == "edit") {
+    $toUpdate = new Cliente($request->nome, $request->cognome, $request->partitaIva, $request->email, $request->password);
+    $toUpdate -> setId($request->id);
+    $DAOCliente -> update($toUpdate);
+  } else if ($request->cod == "remove") {
+    $DAOCliente -> delete($request->id);
+  } else if ($request->cod == "getAll") {
+    $clienti = $DAOCliente -> getAll();
+    $myString = "";
+    foreach ($clienti as $i) {
+      $toPass2 = htmlspecialchars(json_encode($i), ENT_QUOTES, 'UTF-8');
+      if ($i->getId() == $_SESSION['id_cliente']) {
+      } else {
+        $myString .=
+        "<tr ng-click=\"clientiList.editDialog(\$event,".$toPass2.")\">
+          <td class=\"mdl-data-table__cell--non-numeric\">".$i->getNome()."</td>
+          <td class=\"mdl-data-table__cell--non-numeric\">".$i->getCognome()."</td>
+          <td class=\"mdl-data-table__cell--non-numeric\">".$i->getEmail()."</td>
+          <td class=\"mdl-data-table__cell--non-numeric\">".$i->getPartitaIva()."</td>
+        </tr>";
+      }
+    }
+  } else if ($request->cod == "getAutorizzazioni") {
     $impianti = $DAOImpianto -> getFromIdCliente($request->id);
     $myString =
     "<div class=\"mdl-card mdl-cell mdl-cell--4-col\">
@@ -81,7 +108,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
     </table>
     </div>";
 
-  } 
+  }
   echo $myString;
 }
 ?>
