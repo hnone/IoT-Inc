@@ -1,51 +1,3 @@
-<?php
-include('php/session.php');
-include('php/DAOSogliaSensore.php');
-include('php/SogliaSensore.php');
-include('php/DAOSogliaAmbiente.php');
-include('php/SogliaAmbiente.php');
-
-$DAOSogliaSensore = new DAOSogliaSensore();
-$DAOSogliaAmbiente = new DAOSogliaAmbiente();
-
-if($_SERVER["REQUEST_METHOD"] == "POST") {
-  $postdata = file_get_contents("php://input");
-  $request = json_decode($postdata);
-  if ($request->cod == "addSogliaSensore") {
-    if($request->maggMin == "maggiore") {
-      $DAOSogliaSensore -> insert(new SogliaSensore($request->nome, $request->valore, null, $request->idSensore));
-    } else {
-      $DAOSogliaSensore -> insert(new SogliaSensore($request->nome, null, $request->valore, $request->idSensore));
-    }
-  } else if ($request->cod == "addSogliaAmbiente") {
-    if($request->maggMin == "maggiore") {
-      $DAOSogliaAmbiente -> insert(new SogliaAmbiente($request->nome, $request->valore, null, $request->tipo, $request->idAmbiente));
-    } else {
-      $DAOSogliaAmbiente -> insert(new SogliaAmbiente($request->nome, null, $request->valore, $request->tipo, $request->idAmbiente));
-    }
-  } else if ($request->cod == "editSogliaSensore") {
-    if($request->maggMin == "maggiore") {
-      $toUpdate = new SogliaSensore($request->nome, $request->valore, null, $request->idSensore);
-    } else {
-      $toUpdate = new SogliaSensore($request->nome, null, $request->valore, $request->idSensore);
-    }
-    $toUpdate -> setId($request->id);
-    $DAOSogliaSensore -> update($toUpdate);
-  } else if ($request->cod == "editSogliaAmbiente") {
-    if($request->maggMin == "maggiore") {
-      $toUpdate = new SogliaAmbiente($request->nome, $request->valore, null, $request->tipo, $request->idAmbiente);
-    } else {
-      $toUpdate = new SogliaAmbiente($request->nome, null, $request->valore, $request->tipo, $request->idAmbiente);
-    }
-    $toUpdate -> setId($request->id);
-    $DAOSogliaAmbiente -> update($toUpdate);
-  } else if ($request->cod == "removeSogliaSensore") {
-    $DAOSogliaSensore -> delete($request->id);
-  } else if ($request->cod == "removeSogliaAmbiente") {
-    $DAOSogliaAmbiente -> delete($request->id);
-  }
-}
-?>
 <html>
 <head>
   <script>
@@ -59,66 +11,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
       console.info( "This page is not reloaded");
     }
   </script>
+  <link rel="stylesheet" href="css/page.css">
   <style>
-  #add {
-    position: absolute;
-    z-index: 99;
-    top: 6px;
-    right: 8px;
-    height: 40px;
-    width: 40px;
-  }
-  md-dialog {
-    overflow: visible !important;
-  }
-  md-toolbar:not(.md-menu-toolbar) {
-    background-color: #354061 !important;
-  }
-  md-input-container {
-    margin-bottom: 0px !important;
-  }
-  .mdl-data-table td {
-    padding: 12px 12px !important
-  }
-  #delete {
-    margin-top: -2px;
-}
-#render {
-  width: 100%;
-  display: inherit;
-}
-.mdl-demo .mdl-card {
-  min-height: 50px !important;
-  margin: 0 auto;
-  width: 100%;
-}
-
-#render .mdl-card.mdl-cell {
-    padding: 2px;
-}
-
-.fullList {
-  width: 100%;
-}
-
-#listDialog {
-  padding: 0 !important;
-}
-
-  @media (max-width: 690px) {
-      #render {
-        display: inline-table;
-      }
-      .mdl-demo .mdl-card {
-    margin-bottom: 10px;
-    }
-  }
-
-  md-select {
-    width: min-content;
-  }
-
-
+    md-select { width: min-content; }
 </style>
 </head>
 <body>

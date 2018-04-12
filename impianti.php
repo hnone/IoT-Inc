@@ -1,114 +1,6 @@
-<?php
-include('php/session.php');
-include('php/DAOCliente.php');
-include('php/Cliente.php');
-include('php/DAOImpianto.php');
-include('php/Impianto.php');
-//QUESTO VA IN IMPIANTOSERVICE getAll/()
-$DAOImpianto = new DAOImpianto();
-$DAOCliente = new DAOCliente();
-$impianti = $DAOImpianto -> getAll();
-$htmlString = "";
-foreach ($impianti as $i) {
-  $toPass2 = htmlspecialchars(json_encode($i), ENT_QUOTES, 'UTF-8');
-  $cliente = $DAOCliente -> getFromId($i->getIdCliente());
-  if (is_null($i->getIdCliente())) {
-    $htmlString .=
-    "<tr style=\"background-color: #ff000014;\" ng-click=\"impiantiList.editDialog(\$event,".$toPass2.")\">
-      <td class=\"mdl-data-table__cell--non-numeric\">".$i->getNome()."</td>
-      <td class=\"mdl-data-table__cell--non-numeric\">".$i->getTipo()."</td>
-      <td class=\"mdl-data-table__cell--non-numeric\">Nessuno</td>
-    </tr>";
-  } else {
-    $htmlString .=
-    "<tr ng-click=\"impiantiList.editDialog(\$event,".$toPass2.")\">
-      <td class=\"mdl-data-table__cell--non-numeric\">".$i->getNome()."</td>
-      <td class=\"mdl-data-table__cell--non-numeric\">".$i->getTipo()."</td>
-      <td class=\"mdl-data-table__cell--non-numeric\">".$cliente->getNome()." ".$cliente->getCognome()."</td>
-    </tr>";
-  }
-}
-if($_SERVER["REQUEST_METHOD"] == "POST") {
-  $postdata = file_get_contents("php://input");
-  $request = json_decode($postdata);
-  if ($request->cod == "add") {
-    if ($request->idCliente == -1) {
-      $DAOImpianto -> insert(new Impianto($request->nome, $request->tipo, null));
-    } else {
-      $DAOImpianto -> insert(new Impianto($request->nome, $request->tipo, $request->idCliente));
-    }
-  } else if ($request->cod == "edit") {
-    if ($request->idCliente == -1) {
-      $toUpdate = new Impianto($request->nome, $request->tipo, null);
-    } else {
-      $toUpdate = new Impianto($request->nome, $request->tipo, $request->idCliente);
-    }
-    $toUpdate -> setId($request->id);
-    $DAOImpianto -> update($toUpdate);
-  } else if ($request->cod == "remove") {
-    $DAOImpianto -> delete($request->id);
-  }
-}
-?>
 <html>
 <head>
-  <style>
-  #add {
-    position: absolute;
-    z-index: 99;
-    top: 6px;
-    right: 8px;
-    height: 40px;
-    width: 40px;
-  }
-  md-dialog {
-    overflow: visible !important;
-  }
-  md-toolbar:not(.md-menu-toolbar) {
-    background-color: #354061 !important;
-  }
-  md-input-container {
-    margin-bottom: 0px !important;
-  }
-  .mdl-data-table td {
-    padding: 12px 12px !important
-  }
-  #delete {
-    margin-top: -2px;
-}
-#render {
-  width: 100%;
-  display: inherit;
-}
-.mdl-demo .mdl-card {
-  min-height: 50px !important;
-  margin: 0 auto;
-  width: 100%;
-}
-
-#render .mdl-card.mdl-cell {
-    padding: 2px;
-}
-
-.fullList {
-  width: 100%;
-}
-
-#listDialog {
-  padding: 0 !important;
-}
-
-  @media (max-width: 690px) {
-      #render {
-        display: inline-table;
-      }
-      .mdl-demo .mdl-card {
-    margin-bottom: 10px;
-    }
-  }
-
-
-</style>
+  <link rel="stylesheet" href="css/page.css">
 </head>
 <body>
 <div ng-cloak ng-controller="ImpiantiCtrl as impiantiList">
@@ -126,7 +18,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
         </tr>
       </thead>
       <tbody>
-        <?php echo $htmlString ?>
+
       </tbody>
     </table>
     <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" id="add" data-upgraded=",MaterialButton,MaterialRipple" ng-click="impiantiList.addDialog($event)">

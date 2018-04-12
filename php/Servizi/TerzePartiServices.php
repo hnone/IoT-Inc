@@ -3,14 +3,24 @@ include '../session.php';
 include '../DAO/DAOImpianto.php';
 include '../DAO/DAOAmbiente.php';
 include '../DAO/DAOSensoreInstallato.php';
+include('../DAO/DAOTerzaParte.php');
 include '../Modelli/Impianto.php';
 include '../Modelli/Ambiente.php';
 include '../Modelli/SensoreInstallato.php';
+include('../Modelli/TerzaParte.php');
+
+$DAOTerzaParte = new DAOTerzaParte();
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $postdata = file_get_contents("php://input");
     $request = json_decode($postdata);
-    if ($request->cod == "getImpianto") {
+    if ($request->cod == "add") {
+        $DAOTerzaParte -> insert(new TerzaParte($request->nome, $request->cognome, $request->email, $request->tempo, $id_cliente));
+    } elseif ($request->cod == "edit") {
+        $DAOTerzaParte -> update($request->id, $request->nome, $request->cognome, $request->email, $request->tempo);
+    } elseif ($request->cod == "remove") {
+        $DAOTerzaParte -> delete($request->id);
+    } elseif ($request->cod == "getImpianto") {
         $DAOImpianto = new DAOImpianto();
         $impianti = $DAOImpianto->getFromIdCliente($id_cliente);
         $myString =
@@ -27,7 +37,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     "</tbody>
     </table>
     </div>";
-    } elseif ($request->cod == "getAmbiente") {
+  } elseif($request->cod == "getAll") {
+    $myString = "";
+    $terzeParti = $DAOTerzaParte -> getFromIdCliente($id_cliente);
+    foreach ($terzeParti as $i) {
+        $toPass2 = htmlspecialchars(json_encode($i), ENT_QUOTES, 'UTF-8');
+        $myString .=
+      "<tr ng-click=\"terzePartiList.editDialog(\$event,".$toPass2.")\">
+        <td class=\"mdl-data-table__cell--non-numeric\">".$i->getNome()."</td>
+        <td class=\"mdl-data-table__cell--non-numeric\">".$i->getCognome()."</td>
+        <td class=\"mdl-data-table__cell--non-numeric\">".$i->getEmail()."</td>
+        <td class=\"mdl-data-table__cell\" style=\"text-align:  center;\">".$i->getTempo()."</td>
+      </tr>";
+    }
+  } elseif ($request->cod == "getAmbiente") {
         $DAOAmbiente = new DAOAmbiente();
         $DAOImpianto = new DAOImpianto();
         $myString =

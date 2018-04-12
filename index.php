@@ -1,6 +1,4 @@
-<?php
-include('php/login.php');
-?>
+<?php 'php/login.php' ?>
 <!DOCTYPE html>
 <html lang="it" >
 <head>
@@ -46,7 +44,9 @@ include('php/login.php');
   <input type="password" name="password" placeholder="Password" required="required" />
   <input id="login" type="submit" name = "login" class="btn btn-primary btn-block btn-large" value = "Login"/>
   </form>
-  <div id="result"><?php if (isset($error)){ echo $error; } ?></div>
+  <div id="result"><?php if (isset($error)) {
+    echo $error;
+} ?></div>
 </div>
 </body>
 </html>

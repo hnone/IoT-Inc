@@ -1,33 +1,5 @@
-<?php
-include('php/session.php');
-include('php/DAOCliente.php');
-include('php/Cliente.php');
-include('php/DAOImpianto.php');
-include('php/Impianto.php');
-$DAOCliente = new DAOCliente();
-  $DAOImpianto = new DAOImpianto();
-  $impianti = $DAOImpianto->getFromIdCliente($id_cliente);
-  $htmlString = "";
-  foreach ($impianti as $i) {
-    $htmlString .=
-   //"<a href='dashboard.php?id=".$i->getId()."''>
-   //"<a href='dashboard.php?id=".$i->getId()."''>
-    "<div class=\"col-md-4 stepsBox\" ng-click=\"chooseImpianto(".$i->getId().")\">
-      <div class=\"claimSteps\" id=\"stepOne\">
-        <p class=\"claimStepTitle\">".$i->getNome()."</p>
-        <p class=\"claimStepText\">".$i->getTipo()."</p>
-      </div>
-    </div>";
-  //  </a>";
-  }
-?>
-
-  <link rel="stylesheet" href="css/impianti.css">
-  <style>
-  .mdl-mega-footer {
-    background-color: transparent !important;
-  }
-  </style>
+<html>
+<link rel="stylesheet" href="css/choose.css">
 <body>
   <div class="box"  ng-cloak ng-controller="ChooseCtrl">
     <div class="header">

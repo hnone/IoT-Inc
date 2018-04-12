@@ -1,21 +1,55 @@
 <?php
 include '../session.php';
-include '../Modelli/Ambiente.php';
-include '../DAO/DAOAmbiente.php';
 include '../Modelli/SensoreInstallato.php';
-include '../DAO/DAOSensoreInstallato.php';
-include '../DAO/DAOSogliaSensore.php';
-include '../Modelli/SogliaSensore.php';
 include '../DAO/DAOSogliaAmbiente.php';
-include '../Modelli/SogliaAmbiente.php';
+include '../DAO/DAOSogliaSensore.php';
+include '../DAO/DAOAmbiente.php';
+include '../DAO/DAOSensoreInstallato.php';
 include '../DAO/DAOSensore.php';
+include '../Modelli/SogliaAmbiente.php';
+include '../Modelli/SogliaSensore.php';
+include '../Modelli/Ambiente.php';
 include '../Modelli/Sensore.php';
 
+$DAOSogliaSensore = new DAOSogliaSensore();
+$DAOSogliaAmbiente = new DAOSogliaAmbiente();
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $postdata = file_get_contents("php://input");
     $request = json_decode($postdata);
-    if ($request->cod == "getSensore") {
+    if ($request->cod == "addSogliaSensore") {
+        if ($request->maggMin == "maggiore") {
+            $DAOSogliaSensore -> insert(new SogliaSensore($request->nome, $request->valore, null, $request->idSensore));
+        } else {
+            $DAOSogliaSensore -> insert(new SogliaSensore($request->nome, null, $request->valore, $request->idSensore));
+        }
+    } elseif ($request->cod == "addSogliaAmbiente") {
+        if ($request->maggMin == "maggiore") {
+            $DAOSogliaAmbiente -> insert(new SogliaAmbiente($request->nome, $request->valore, null, $request->tipo, $request->idAmbiente));
+        } else {
+            $DAOSogliaAmbiente -> insert(new SogliaAmbiente($request->nome, null, $request->valore, $request->tipo, $request->idAmbiente));
+        }
+    } elseif ($request->cod == "editSogliaSensore") {
+        if ($request->maggMin == "maggiore") {
+            $toUpdate = new SogliaSensore($request->nome, $request->valore, null, $request->idSensore);
+        } else {
+            $toUpdate = new SogliaSensore($request->nome, null, $request->valore, $request->idSensore);
+        }
+        $toUpdate -> setId($request->id);
+        $DAOSogliaSensore -> update($toUpdate);
+    } elseif ($request->cod == "editSogliaAmbiente") {
+        if ($request->maggMin == "maggiore") {
+            $toUpdate = new SogliaAmbiente($request->nome, $request->valore, null, $request->tipo, $request->idAmbiente);
+        } else {
+            $toUpdate = new SogliaAmbiente($request->nome, null, $request->valore, $request->tipo, $request->idAmbiente);
+        }
+        $toUpdate -> setId($request->id);
+        $DAOSogliaAmbiente -> update($toUpdate);
+    } elseif ($request->cod == "removeSogliaSensore") {
+        $DAOSogliaSensore -> delete($request->id);
+    } elseif ($request->cod == "removeSogliaAmbiente") {
+        $DAOSogliaAmbiente -> delete($request->id);
+    } elseif ($request->cod == "getSensore") {
         $DAOSensoreInstallato = new DAOSensoreInstallato();
         $myString =
     "<div class=\"mdl-card mdl-cell mdl-cell--12-col\">

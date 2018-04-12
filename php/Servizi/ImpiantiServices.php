@@ -11,12 +11,52 @@ include '../Modelli/Ambiente.php';
 include '../Modelli/Sensore.php';
 include '../Modelli/SensoreInstallato.php';
 
+$DAOImpianto = new DAOImpianto();
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $myString = "";
     $postdata = file_get_contents("php://input");
     $request = json_decode($postdata);
     $DAOAmbiente = new DAOAmbiente();
-    if ($request->cod == "getAutorizzazioni") {
+    if ($request->cod == "add") {
+      if ($request->idCliente == -1) {
+        $DAOImpianto -> insert(new Impianto($request->nome, $request->tipo, null));
+      } else {
+        $DAOImpianto -> insert(new Impianto($request->nome, $request->tipo, $request->idCliente));
+      }
+    } else if ($request->cod == "edit") {
+      if ($request->idCliente == -1) {
+        $toUpdate = new Impianto($request->nome, $request->tipo, null);
+      } else {
+        $toUpdate = new Impianto($request->nome, $request->tipo, $request->idCliente);
+      }
+      $toUpdate -> setId($request->id);
+      $DAOImpianto -> update($toUpdate);
+    } else if ($request->cod == "remove") {
+      $DAOImpianto -> delete($request->id);
+    } else if ($request->cod == "getAll") {
+      $DAOCliente = new DAOCliente();
+      $impianti = $DAOImpianto -> getAll();
+      $htmlString = "";
+      foreach ($impianti as $i) {
+        $toPass2 = htmlspecialchars(json_encode($i), ENT_QUOTES, 'UTF-8');
+        $cliente = $DAOCliente -> getFromId($i->getIdCliente());
+        if (is_null($i->getIdCliente())) {
+          $myString .=
+          "<tr style=\"background-color: #ff000014;\" ng-click=\"impiantiList.editDialog(\$event,".$toPass2.")\">
+            <td class=\"mdl-data-table__cell--non-numeric\">".$i->getNome()."</td>
+            <td class=\"mdl-data-table__cell--non-numeric\">".$i->getTipo()."</td>
+            <td class=\"mdl-data-table__cell--non-numeric\">Nessuno</td>
+          </tr>";
+        } else {
+          $myString .=
+          "<tr ng-click=\"impiantiList.editDialog(\$event,".$toPass2.")\">
+            <td class=\"mdl-data-table__cell--non-numeric\">".$i->getNome()."</td>
+            <td class=\"mdl-data-table__cell--non-numeric\">".$i->getTipo()."</td>
+            <td class=\"mdl-data-table__cell--non-numeric\">".$cliente->getNome()." ".$cliente->getCognome()."</td>
+          </tr>";
+        }
+      }
+    } else if ($request->cod == "getAutorizzazioni") {
         //getAmbienti(impianto)
         $ambienti = $DAOAmbiente -> getFromIdImpianto($request->id);
         $myString =

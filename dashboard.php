@@ -1,5 +1,5 @@
 <?php
-include('php/session.php');
+include 'php/session.php';
 ?>
 <html lang="it" ng-app="MyApp">
   <head>

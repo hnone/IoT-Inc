@@ -27,76 +27,7 @@ if (window.performance) {
       $('#date-end').bootstrapMaterialDatePicker('setMinDate', date);
     });
 </script>
-<style>
-.chart {
-  width: initial !important;
-  padding: 10;
-}
-
-.dtp>.dtp-content>.dtp-date-view>header.dtp-header,
-	table.dtp-picker-days tr>td>a.selected{
-		background-color: #364061;
-	}
-	.dtp div.dtp-date, .dtp div.dtp-time{
-		background-color: #495370;
-	}
-	.svg-clock [fill='#8BC34A'] {
-		fill: #495370;
-	}
-	.hour-hand, .minute-hand{ stroke: #364061; }
-	.div.dtp-actual-year, .p10>a{ color: #fff; }
-	.btn{
-		padding: 10px 20px;
-		text-transform: uppercase;
-		background-color: #495370;
-		margin-left: 10px;
-		box-shadow: 0;
-		border: 0;
-		color: #fff;
-		cursor: pointer;
-  		&:hover, &:focus{
-  			background-color: #495370;
-  		}
-  		&.dtp-btn-cancel{
-  			background-color: #495370;
-  		}
-    }
-    .dtp .p10>a {
-    color: #495370;
-    }
-    .dtp table.dtp-picker-days tr>td>a.selected {
-    background: #495370;
-	}
-  .dtp div.dtp-actual-year {
-    color: #fff;
-  }
-  .datePicker {
-    /*width:50%;*/
-    font-size: 16px;
-    width: 92px;
-  }
-
-  .material-icons {
-    color: #fff !important;
-  }
-  
-  #myCol {
-    display: inline-flex;
-        font-size: 18px;
-        line-height: 32px;
-        vertical-align: middle;
--webkit-box-align: center;
--moz-box-align: center;
--ms-flex-align: center;
--webkit-align-items: center;
-align-items: center;
--webkit-box-pack: center;
--moz-box-pack: center;
--ms-flex-pack: center;
--webkit-justify-content: center;
-justify-content: center;
-  }
-</style>
+<link rel="stylesheet" href="css/rilevazioni.css">
 <div ng-cloak ng-controller="RilevazioniCtrl" id="RilevazioniCtrlID">
 
       <div compile="listRilSens" style="width: 100%;"></div>
