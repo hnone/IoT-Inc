@@ -8,14 +8,6 @@ $htmlString = "";
 foreach ($clienti as $i) {
   $toPass2 = htmlspecialchars(json_encode($i), ENT_QUOTES, 'UTF-8');
   if ($i->getId() == $_SESSION['id_cliente']) {
-    /*
-    $htmlString .=
-    "<tr style=\"background-color: #ff000014;\" ng-click=\"clientiList.editDialog(\$event,".$toPass2.")\">
-      <td class=\"mdl-data-table__cell--non-numeric\">".$i->getNome()."</td>
-      <td class=\"mdl-data-table__cell--non-numeric\">".$i->getCognome()."</td>
-      <td class=\"mdl-data-table__cell--non-numeric\">".$i->getEmail()."</td>
-      <td class=\"mdl-data-table__cell--non-numeric\">".$i->getPartitaIva()."</td>
-    </tr>";*/
   } else {
     $htmlString .=
     "<tr ng-click=\"clientiList.editDialog(\$event,".$toPass2.")\">
