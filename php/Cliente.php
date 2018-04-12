@@ -1,5 +1,5 @@
 <?php
-class Cliente {
+class Cliente implements JsonSerializable {
 
 	private	$id;
 	private	$nome;
@@ -15,6 +15,14 @@ class Cliente {
 		$this->partitaIva = $partitaIva;
 		$this->email = $email ;
 		$this->password = $password;
+	}
+
+	public function isAmministratore() {
+		if ($this->tipo == "AMMINISTRATORE") {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	public function getId() { return $this->id; }
@@ -44,6 +52,17 @@ class Cliente {
   public function setPassword($password) { $this->password = $password; }
 
   public function setTipo($tipo) { $this->tipo = $tipo; }
+
+	public function jsonSerialize() {
+		return array(
+			'id'=>$this->id,
+			'nome'=>$this->nome,
+			'cognome'=>$this->cognome,
+			'email'=>$this->email,
+			'password'=>$this->password,
+			'partitaIva'=>$this->partitaIva
+		);
+	}
 
 }
 ?>

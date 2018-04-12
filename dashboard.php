@@ -36,6 +36,7 @@ include('php/session.php');
     <script>document.write('<base href="' + document.location + '" />');</script>
 
     <!-- Material Design Lite page styles -->
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.css">
     <link rel="stylesheet" href = "css/material.css">
     <script src = "/js/material.js"></script>
     <script src = "https://code.jquery.com/jquery-3.3.1.min.js"></script>
@@ -52,9 +53,8 @@ include('php/session.php');
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-datetimepicker/2.7.1/css/bootstrap-material-datetimepicker.min.css"/>
     <script src="https://momentjs.com/downloads/moment-with-locales.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-datetimepicker/2.7.1/js/bootstrap-material-datetimepicker.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.5.10/js/ripples.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.5.10/js/material.min.js"></script>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.5.10/js/ripples.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.5.10/js/material.min.js"></script>
     <!-- Angular Material Library -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-material/1.1.8/angular-material.js"></script>
 
@@ -66,26 +66,22 @@ include('php/session.php');
   <body class="mdl-demo mdl-color--grey-100 mdl-color-text--grey-700 mdl-base" ng-controller="MainCtrl">
     <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
       <header class="mdl-layout__header mdl-layout--fixed-header mdl-color--primary">
-        <!--<div class="mdl-layout mdl-layout__header-row">
-          <h3 id="welcome"><?php echo $nomeImpianto ?></h3>
-        </div>-->
         <div class="mdl-layout__tab-bar mdl-js-ripple-effect mdl-color--primary-dark">
-          <!--<nav class="mdl-navigation">-->
-          <!--<form action = "" method = "post" name="change">-->
+          <?php if (!$_SESSION['isAmministratore']) {?>
           <a href="#/choose">
           <button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-shadow--4dp" id="back">
             <i class="material-icons" role="presentation">business</i>
             <span class="visuallyhidden">Cambia Impianto</span>
           </button>
           </a>
-          <!--</form>-->
-          <!--<a href="#/home" class="mdl-layout__tab" ng-class="{isactive: $route.current.map == 'home'}"><?php echo $nomeImpianto ?></a>-->
-          <a href="#/home" class="mdl-layout__tab" ng-class="{isactive: $route.current.map == 'home'}">{{both()}}</a>
-          <!--<a href="#/stanze" class="mdl-layout__tab" ng-class="{isactive: $route.current.map == 'stanze'}">Stanze</a>
-          <a href="#/sensori" class="mdl-layout__tab" ng-class="{isactive: $route.current.map == 'sensori'}">Sensori</a>-->
-          <a href="#/soglie" class="mdl-layout__tab gone" ng-class="{isactive: $route.current.map == 'soglie'}">Soglie</a>
+          <a href="#/home" style="display:{{both2()}};" class="mdl-layout__tab" ng-class="{isactive: $route.current.map == 'home'}">{{both()}}</a>
+          <a href="#/soglie" style="display:{{both3()}};" class="mdl-layout__tab gone" ng-class="{isactive: $route.current.map == 'soglie'}">{{both1()}}</a>
           <a href="#/terzeParti" class="mdl-layout__tab gone" ng-class="{isactive: $route.current.map == 'terzeParti'}">Terze Parti</a>
-          <!--</nav>-->
+          <?php } else {?>
+          <a href="#/clienti" class="mdl-layout__tab" ng-class="{isactive: $route.current.map == 'clienti'}">Clienti</a>
+          <a href="#/impianti" class="mdl-layout__tab" ng-class="{isactive: $route.current.map == 'impianti'}">Impianti</a>
+          <a href="#/sensori" class="mdl-layout__tab" ng-class="{isactive: $route.current.map == 'sensori'}">Sensori</a>
+          <?php } ?>
           <form action = "/php/logout.php" method = "post" name="logout">
           <button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-shadow--4dp" id="logout">
             <i class="material-icons" role="presentation">exit_to_app</i>

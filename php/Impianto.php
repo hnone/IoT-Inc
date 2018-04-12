@@ -1,5 +1,5 @@
 <?php
-class Impianto {
+class Impianto implements JsonSerializable {
 
 	private	$id;
 	private	$nome;
@@ -27,6 +27,16 @@ class Impianto {
   public function setTipo($tipo) { $this->tipo = $tipo; }
 
   public function setIdCliente($idCliente) {$this->idCliente = $idCliente; }
+
+
+		public function jsonSerialize() {
+			return array(
+				'id'=>$this->id,
+				'nome'=>$this->nome,
+				'tipo'=>$this->tipo,
+				'idCliente'=>$this->idCliente
+			);
+		}
 
 }
 ?>

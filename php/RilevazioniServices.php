@@ -1,9 +1,5 @@
 <?php
 include('session.php');
-include('DAOCliente.php');
-include('Cliente.php');
-include('DAOImpianto.php');
-include('Impianto.php');
 include('DAOAmbiente.php');
 include('Ambiente.php');
 include('DAOSensoreInstallato.php');
@@ -12,12 +8,13 @@ include('DAOSensore.php');
 include('Sensore.php');
 include('DAORilevazione.php');
 include('Rilevazione.php');
+include('DAOViolazione.php');
 
-$DAOImpianto = new DAOImpianto();
 $DAOSensoreInstallato = new DAOSensoreInstallato();
 $DAOAmbiente = new DAOAmbiente();
 $DAOSensore = new DAOSensore();
 $DAORilevazione = new DAORilevazione();
+$DAOViolazione = new DAOViolazione();
 
 if($_SERVER["REQUEST_METHOD"] == "POST") {
   $postdata = file_get_contents("php://input");
@@ -88,6 +85,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                             <th class=\"mdl-data-table__cell--non-numeric\">Ambiente</th>
                             <th class=\"mdl-data-table__cell--non-numeric\">Data\Ora</th>
                             <th class=\"mdl-data-table__cell--non-numeric\">Tipo</th>
+                            <th class=\"mdl-data-table__cell--non-numeric\">Soglie Violate</th>
                             <th>Valore</th>
                             </tr>
                             </thead>
@@ -98,6 +96,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
       $htmlString .= "<tr><td class=\"mdl-data-table__cell--non-numeric\">Non ci sono rilevazioni</td>";
     } else {
       foreach ($rilevazioni as $j) {
+        $style = "";
         $sensoreInstallato = $DAOSensoreInstallato -> getFromId($j->getIdSensoreInstallato());
         $nomeSensoreInstallato = $sensoreInstallato -> getNome();
         $idSensoreAssociatoalSensoreInstallato = $sensoreInstallato -> getIdSensore();
@@ -105,6 +104,17 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
         $sensore = $DAOSensore -> getFromId($idSensoreAssociatoalSensoreInstallato);
         $tipoSensore = $sensore -> getTipo();
         $unitaSensore = $sensore -> getUnitaMisura();
+        $soglieSensoreViolate = $DAOViolazione -> getSoglieSensoreViolate($j->getId());
+        $violazioni = "";
+        foreach ($soglieSensoreViolate as $violazione) {
+          $violazioni .= $violazione -> getNome();
+          $style = "style=\"background-color: #ffd20066;\"";
+        }
+        $soglieAmbienteViolate = $DAOViolazione -> getSoglieAmbienteViolate($j->getId());
+        foreach ($soglieAmbienteViolate as $violazione) {
+          $violazioni .= $violazione -> getNome();
+          $style = "style=\"background-color: #ffd20066;\"";
+        }
       if($ambiente) {
         $nomeAmbiente = $ambiente->getNome();
       } else {
@@ -112,11 +122,12 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
       }
       $htmlString .=
       //"<tr ng-click=\"questList.editDialog(\$event,'".$i->getId()."','".$i->getNome()."','".$i->getCognome()."','".$i->getEmail()."')\">
-      "<tr ng-click=\"chooseSensoreInstallato(\$event,".$j->getIdSensoreInstallato().",'".$tipoSensore."','".$unitaSensore."')\">
+      "<tr ng-click=\"chooseSensoreInstallato(\$event,".$j->getIdSensoreInstallato().",'".$tipoSensore."','".$unitaSensore."')\"".$style.">
         <td class=\"mdl-data-table__cell--non-numeric\">".$nomeSensoreInstallato."</td>
         <td class=\"mdl-data-table__cell--non-numeric\">".$nomeAmbiente."</td>
         <td class=\"mdl-data-table__cell--non-numeric\">".$j->getData()."</td>
         <td class=\"mdl-data-table__cell--non-numeric\">".$tipoSensore."</td>
+        <td class=\"mdl-data-table__cell--non-numeric\">".$violazioni."</td>
         <td class=\"mdl-data-table__cell\">".$j->getValore().$unitaSensore."</td>
       </tr>";
       }

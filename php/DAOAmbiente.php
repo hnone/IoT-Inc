@@ -9,8 +9,8 @@ class DAOAmbiente {
 	}
 
   function insert($ambiente) {
-    $nome = $terzaParte->getNome();
-    $idImpianto = $terzaParte->getIdImpianto();
+    $nome = $ambiente->getNome();
+    $idImpianto = $ambiente->getIdImpianto();
 
     $query = "INSERT INTO Ambiente (id, nome, idImpianto)
     VALUES (NULL, '$nome', '$idImpianto')";
@@ -19,14 +19,14 @@ class DAOAmbiente {
 
   function getFromId($id) {
     $query = "SELECT * FROM Ambiente WHERE id = '$id'";
-    $result = mysqli_query($this->db, $query) or die("Query fallita");
+    $result = mysqli_query($this->db, $query);
     $ambienti = self::creaAmbiente($result);
     return reset($ambienti);
   }
 
-  function getFromImpianto($idImpianto) {
+  function getFromIdImpianto($idImpianto) {
     $query = "SELECT * FROM Ambiente WHERE idImpianto = '$idImpianto'";
-    $recordSet = mysqli_query($this->db, $query) or die("Query fallita") ;
+    $recordSet = mysqli_query($this->db, $query);
     return self::creaAmbiente($recordSet);
   }
 

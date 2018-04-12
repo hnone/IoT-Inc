@@ -9,15 +9,21 @@ if (window.performance) {
     console.info( "This page is not reloaded");
   }
 
+  window.onload = function () {
+    angular.element(document.getElementById('RilevazioniCtrlID')).scope().generateGraph($('#date-start').bootstrapMaterialDatePicker().val(), $('#date-end').bootstrapMaterialDatePicker().val());
+  }
+
   $('#date-end').bootstrapMaterialDatePicker({ weekStart : 0, format : 'DD/MM/YYYY', currentDate: new Date(), time: false, cancelText : 'CANCELLA'})
     .on('change', function(e, date) {
       console.log("DATE_START: " +  $('#date-start').bootstrapMaterialDatePicker().val());
       console.log("DATE_END: " + $('#date-end').bootstrapMaterialDatePicker().val());
+      angular.element(document.getElementById('RilevazioniCtrlID')).scope().generateGraph($('#date-start').bootstrapMaterialDatePicker().val(), $('#date-end').bootstrapMaterialDatePicker().val());
     });
   $('#date-start').bootstrapMaterialDatePicker({ weekStart : 0, format : 'DD/MM/YYYY', currentDate: new Date(), time: false, cancelText : 'CANCELLA'})
     .on('change', function(e, date) {
       console.log("DATE_START: " +  $('#date-start').bootstrapMaterialDatePicker().val());
       console.log("DATE_END: " + $('#date-end').bootstrapMaterialDatePicker().val());
+      angular.element(document.getElementById('RilevazioniCtrlID')).scope().generateGraph($('#date-start').bootstrapMaterialDatePicker().val(), $('#date-end').bootstrapMaterialDatePicker().val());
       $('#date-end').bootstrapMaterialDatePicker('setMinDate', date);
     });
 </script>
@@ -69,6 +75,11 @@ if (window.performance) {
     font-size: 16px;
     width: 92px;
   }
+
+  .material-icons {
+    color: #fff !important;
+  }
+  
   #myCol {
     display: inline-flex;
         font-size: 18px;
@@ -86,7 +97,7 @@ align-items: center;
 justify-content: center;
   }
 </style>
-<div ng-cloak ng-controller="RilevazioniCtrl">
+<div ng-cloak ng-controller="RilevazioniCtrl" id="RilevazioniCtrlID">
 
       <div compile="listRilSens" style="width: 100%;"></div>
       <section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp">

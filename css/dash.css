@@ -316,9 +316,18 @@ html, body {
   padding-bottom: 10px !important;
   padding-left: 0px !important;
   padding-right: 0px !important;
-  background-color: #364061;
+  background-color: #364061 !important;
   width: 100%;
   flex-shrink: 0;
+}
+
+md-toolbar.md-default-theme:not(.md-menu-toolbar), md-toolbar:not(.md-menu-toolbar) {
+    background-color: transparent !important;
+}
+
+md-toolbar {
+    font-size: 16px !important;
+    min-height: auto !important;
 }
 
 .mdl-layout__content {

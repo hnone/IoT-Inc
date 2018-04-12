@@ -14,7 +14,10 @@ include_once 'TerzaParte.php';
 include_once 'CreaAdattatori.php';
 include_once 'DAOTerzaParte.php';
 include_once 'DAORilevazione.php';
+include_once 'DAOSogliaSensore.php';
+include_once 'SogliaSensore.php';
 include_once 'FileReader.php';
+include_once 'DAOViolazione.php';
 
 /*
 $daoAutorizzazione = new DAOAutorizzazione();
@@ -84,7 +87,8 @@ if ($diffMinuti >= $tempo) {
 //    echo($ok->getNome());
 //    echo "\n";
 //}
-$test = new CreaAdattatori("frenni.txt", 50);
+/*
+$test = new CreaAdattatori("frenni.txt", 5);
 $test->create();
 $fr = new FileReader("frenni.txt");
 $daoR = new DAORilevazione();
@@ -94,4 +98,6 @@ foreach ($array as $string) {
   $rilevazione = new Rilevazione($adattatore);
   $daoR->insert($rilevazione);
 };
+*/
+
 ?>

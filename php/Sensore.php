@@ -1,5 +1,5 @@
 <?php
-class Sensore {
+class Sensore implements JsonSerializable {
 
 	private	$id;
 	private	$marca;
@@ -24,14 +24,27 @@ class Sensore {
 
   public function getUnitaMisura() { return $this->unitaMisura; }
 
+	public function getNome() { return $this->getMarca()." - ".$this->getModello()." - ".$this->getTipo(); }
+
   public function setId($id) { $this->id = $id; }
 
-  public function setNome($marca) { $this->marca = $marca; }
+  public function setMarca($marca) { $this->marca = $marca; }
 
-  public function setCognome($modello) { $this->modello = $modello; }
+  public function setModello($modello) { $this->modello = $modello; }
 
-  public function setPartitaIva($tipo) { $this->tipo = $tipo; }
+	public function setTipo($tipo) { $this->tipo = $tipo; }
 
-  public function setEmail($unitaMisura) { $this->unitaMisura = $unitaMisura; }
+  public function setUnitaMisura($unitaMisura) { $this->unitaMisura = $unitaMisura; }
+
+	public function jsonSerialize() {
+    return array(
+			'id'=>$this->id,
+      'marca'=>$this->marca,
+			'modello'=>$this->modello,
+      'tipo'=>$this->tipo,
+			'unitaMisura'=>$this->unitaMisura
+		);
+	}
+
 }
 ?>

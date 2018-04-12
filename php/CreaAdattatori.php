@@ -27,7 +27,7 @@ class CreaAdattatori {
 
   public function createIdentificatore() {
     $daoSensoreInstallato = new DAOSensoreInstallato();
-    $sensoriInstallati = $daoSensoreInstallato->getFromImpianto(self::IMPIANTO);
+    $sensoriInstallati = $daoSensoreInstallato->getFromIdImpianto(self::IMPIANTO);
     $size = sizeof($sensoriInstallati);
     $rand = rand(0, $size - 1);
     $id = $sensoriInstallati[$rand]->getId();

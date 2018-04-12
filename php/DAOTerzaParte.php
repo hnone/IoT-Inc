@@ -26,25 +26,25 @@ class DAOTerzaParte{
 
   function getAll() {
     $query = "SELECT * FROM TerzaParte";
-    $recordSet = mysqli_query($this->db, $query) or die("Query fallita");
+    $recordSet = mysqli_query($this->db, $query);
     return self::creaTerzaParte($recordSet);
   }
 
   function getFromIdCliente($idCliente) {
     $query = "SELECT * FROM TerzaParte WHERE idCliente = '$idCliente'";
-    $recordSet = mysqli_query($this->db, $query) or die("Query fallita") ;
+    $recordSet = mysqli_query($this->db, $query);
     return self::creaTerzaParte($recordSet);
   }
 
   function getFromCliente($cliente) {
     $query = "SELECT * FROM TerzaParte WHERE idCliente = " .$cliente->getId() ;
-    $recordSet = mysqli_query($this->db, $query) or die("Query fallita") ;
+    $recordSet = mysqli_query($this->db, $query);
     return self::creaTerzaParte($recordSet);
   }
 
   function getFromId($id) {
     $query = "SELECT * FROM TerzaParte WHERE id = '$id'";
-    $result = mysqli_query($this->db, $query) or die("Query fallita");
+    $result = mysqli_query($this->db, $query);
     $terzeparti = self::creaTerzaParte($result);
     return reset($terzeparti);
   }

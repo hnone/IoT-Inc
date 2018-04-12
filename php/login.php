@@ -19,13 +19,19 @@ include('Impianto.php');
          //echo "Login successiful";
          $_SESSION['id_cliente'] = $cliente->getId();
          $_SESSION['password'] = $cliente->getId();
-         $DAOImpianto = new DAOImpianto();
-         $impianti = $DAOImpianto->getFromCliente($cliente);
-         $nImpianti = sizeOf($impianti);
-         if($nImpianti <= 0) {
-           $error = "Non hai impianti";
-         } else {
+         if ($cliente->isAmministratore()) {
+           $_SESSION['isAmministratore'] = true;
            header("location: ../dashboard.php");
+         } else {
+           $DAOImpianto = new DAOImpianto();
+           $impianti = $DAOImpianto->getFromIdCliente($cliente->getId());
+           $nImpianti = sizeOf($impianti);
+           if($nImpianti <= 0) {
+             $error = "Non hai impianti";
+           } else {
+            $_SESSION['isAmministratore'] = false;
+            header("location: ../dashboard.php");
+           }
          }
        } else {
          $error = "Email o password errata";

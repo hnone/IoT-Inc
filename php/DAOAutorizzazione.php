@@ -27,7 +27,7 @@ class DAOAutorizzazione{
   function insertAmbiente($idTerzaParte, $idAmbiente) {
     $query = "INSERT INTO Autorizzazione (id, idTerzaParte, idImpianto, idAmbiente, idSensoreInstallato)
     VALUES (NULL, '$idTerzaParte', NULL, '$idAmbiente', NULL)";
-    $this->db->query($query) or die("Query fallita");
+    $this->db->query($query);
   }
 
   function insertSensoreInstallato($idTerzaParte, $idSensoreInstallato) {
@@ -55,7 +55,7 @@ class DAOAutorizzazione{
     $idImpianti = array();
 
     $query = "SELECT DISTINCT idImpianto FROM Autorizzazione WHERE idTerzaParte = '$idTerzaParte' AND idImpianto IS NOT NULL";
-    $risultatoQuery = mysqli_query($this->db, $query) or die("Query fallita");
+    $risultatoQuery = mysqli_query($this->db, $query);
 
     while($row = mysqli_fetch_array($risultatoQuery)) {
       array_push($idImpianti, $row["idImpianto"]);
@@ -73,7 +73,7 @@ class DAOAutorizzazione{
     $idAmbienti = array();
 
     $query = "SELECT DISTINCT idAmbiente FROM Autorizzazione WHERE idTerzaParte = '$idTerzaParte' AND idAmbiente IS NOT NULL";
-    $risultatoQuery = mysqli_query($this->db, $query) or die("Query fallita");
+    $risultatoQuery = mysqli_query($this->db, $query);
 
     while($row = mysqli_fetch_array($risultatoQuery)) {
       array_push($idAmbienti, $row["idAmbiente"]);
@@ -91,7 +91,7 @@ class DAOAutorizzazione{
     $idSensoriInstallati = array();
 
     $query = "SELECT DISTINCT idSensoreInstallato FROM Autorizzazione WHERE idTerzaParte = '$idTerzaParte' AND idSensoreInstallato IS NOT NULL";
-    $risultatoQuery = mysqli_query($this->db, $query) or die("Query fallita");
+    $risultatoQuery = mysqli_query($this->db, $query);
 
     while($row = mysqli_fetch_array($risultatoQuery)) {
       array_push($idSensoriInstallati, $row["idSensoreInstallato"]);

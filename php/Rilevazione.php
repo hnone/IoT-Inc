@@ -24,10 +24,11 @@ class Rilevazione implements JsonSerializable {
     $messaggio = $exploded[1];
     $this->idSensoreInstallato = substr($corpo, 0, 3);
     $err = substr($corpo,3,1);
-		$tempData = substr($corpo,4,8);
-		$this->data =substr($tempData,4)."-".substr($tempData,2,2)."-".substr($tempData,0,2);
 		$tempOra = substr($corpo,12,6);
-    $this->ora = substr($tempOra,0,2).":".substr($tempOra,2,2).":".substr($tempOra,4);
+    $ora = substr($tempOra,0,2).":".substr($tempOra,2,2).":".substr($tempOra,4);
+    $tempData = substr($corpo,4,8);
+		$tempData =substr($tempData,4)."-".substr($tempData,2,2)."-".substr($tempData,0,2);
+    $this->data = $tempData." ".$ora;
     if($err == "0") {
 			$temp = substr($corpo,18);
       $this->valore = ($temp / 1000);

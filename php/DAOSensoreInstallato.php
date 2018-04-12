@@ -24,24 +24,30 @@ class DAOSensoreInstallato{
       WHERE id = '$id'";
     }
 
-    $this->db->query($query) or die("Query fallita");
+    $this->db->query($query);
   }
 
   function getAll() {
     $query = "SELECT * FROM SensoreInstallato";
-    $result = mysqli_query($this->db, $query) or die("Query fallita") ;
+    $result = mysqli_query($this->db, $query);
     return self::creaSensoreInstallato($result);
   }
 
-  function getFromImpianto($idImpianto) {
-    $query = "SELECT * FROM SensoreInstallato WHERE IdImpianto = '$idImpianto'";
-    $result = mysqli_query($this->db, $query) or die("Query fallita") ;
+  function getFromIdImpianto($idImpianto) {
+    $query = "SELECT * FROM SensoreInstallato WHERE idImpianto = '$idImpianto'";
+    $result = mysqli_query($this->db, $query);
+    return self::creaSensoreInstallato($result);
+  }
+
+  function getFromIdAmbiente($idAmbiente) {
+    $query = "SELECT * FROM SensoreInstallato WHERE idAmbiente = '$idAmbiente'";
+    $result = mysqli_query($this->db, $query);
     return self::creaSensoreInstallato($result);
   }
 
   function getFromId($idSensoreInstallato) {
     $query = "SELECT * FROM SensoreInstallato WHERE id = '$idSensoreInstallato'";
-    $result = mysqli_query($this->db, $query) or die("Query fallita");
+    $result = mysqli_query($this->db, $query);
     $sensoriInstallati = self::creaSensoreInstallato($result);
     return reset($sensoriInstallati);
   }
@@ -54,9 +60,9 @@ class DAOSensoreInstallato{
       $idSensore = $row["idSensore"];
       $idImpianto = $row["idImpianto"];
       $idAmbiente = $row["idAmbiente"];
-      $sensoreInstallato = new SensoreInstallato($nome, $idSensore, $idImpianto);
+      $sensoreInstallato = new SensoreInstallato($nome, $idSensore, $idImpianto, $idAmbiente);
       $sensoreInstallato->setId($id);
-      $sensoreInstallato->setIdAmbiente($idAmbiente);
+      //$sensoreInstallato->setIdAmbiente($idAmbiente);
       array_push($sensoriInstallati, $sensoreInstallato);
     }
     return $sensoriInstallati;
@@ -75,7 +81,7 @@ class DAOSensoreInstallato{
       VALUES (NULL, '$nome', '$idSensore', '$idImpianto', '$idAmbiente')";
     }
 
-    $this->db->query($query) or die("FALLITA");
+    $this->db->query($query);
   }
 
   function delete($idSensoreInstallato) {

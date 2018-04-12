@@ -11,7 +11,5 @@ if (window.performance) {
 </script>
 
 <div ng-cloak ng-controller="HomeCtrl">
-
       <div compile="listRil" style="width: 100%;"></div>
-
 </div>

@@ -35,7 +35,7 @@ class DAORilevazione {
 
   function getAll() {
     $query = "SELECT * FROM Rilevazione";
-    $result = mysqli_query($this->db, $query) or die("Query fallita");
+    $result = mysqli_query($this->db, $query);
     return self::creaRilevazione($result);
   }
 
@@ -43,7 +43,7 @@ class DAORilevazione {
     $query = "SELECT Rilevazione.id, Rilevazione.idSensoreInstallato, Rilevazione.data, Rilevazione.valore, Rilevazione.errore, Rilevazione.messaggio
               FROM SensoreInstallato INNER JOIN Rilevazione ON SensoreInstallato.id = Rilevazione.idSensoreInstallato
               WHERE SensoreInstallato.idImpianto = '$idImpianto' AND Rilevazione.errore IS null ORDER BY Rilevazione.data DESC";
-    $result = mysqli_query($this->db, $query) or die("Query fallita");
+    $result = mysqli_query($this->db, $query);
     return self::creaRilevazione($result);
   }
 
@@ -51,7 +51,7 @@ class DAORilevazione {
     $query = "SELECT Rilevazione.id, Rilevazione.idSensoreInstallato, Rilevazione.data, Rilevazione.valore, Rilevazione.errore, Rilevazione.messaggio
               FROM SensoreInstallato INNER JOIN Rilevazione ON SensoreInstallato.id = Rilevazione.idSensoreInstallato
               WHERE SensoreInstallato.idImpianto = '$idImpianto' AND Rilevazione.valore IS null ORDER BY Rilevazione.data DESC";
-    $result = mysqli_query($this->db, $query) or die("Query fallita");
+    $result = mysqli_query($this->db, $query);
     return self::creaRilevazione($result);
   }
 
@@ -59,19 +59,23 @@ class DAORilevazione {
     $query = "SELECT Rilevazione.id, Rilevazione.idSensoreInstallato, Rilevazione.data, Rilevazione.valore, Rilevazione.errore, Rilevazione.messaggio
               FROM SensoreInstallato INNER JOIN Rilevazione ON SensoreInstallato.id = Rilevazione.idSensoreInstallato
               WHERE SensoreInstallato.id = '$idSensoreInstallato' ORDER BY Rilevazione.data DESC";
-    $result = mysqli_query($this->db, $query) or die("Query fallita");
+    $result = mysqli_query($this->db, $query);
     return self::creaRilevazione($result);
   }
 
   function getRilevazioniEccezioniAmbiente($idAmbiente) {
-
+    $query = "SELECT Rilevazione.id, Rilevazione.idSensoreInstallato, Rilevazione.data, Rilevazione.valore, Rilevazione.errore, Rilevazione.messaggio
+              FROM SensoreInstallato INNER JOIN Rilevazione ON sensoreinstallato.id = rilevazione.idSensoreInstallato
+              WHERE sensoreinstallato.idAmbiente = '$IdAmbiente' ORDER BY rilevazione.data DESC";
+    $result = mysqli_query($this->db, $query);
+    return self::creaRilevazione($result);
   }
 
   function getRilevazioniEccezioniData($idSensoreInstallato, $data1, $data2) {
     $query = "SELECT Rilevazione.id, Rilevazione.idSensoreInstallato, Rilevazione.data, Rilevazione.valore, Rilevazione.errore, Rilevazione.messaggio
               FROM SensoreInstallato INNER JOIN Rilevazione ON SensoreInstallato.id = Rilevazione.idSensoreInstallato
               WHERE SensoreInstallato.id = '$idSensoreInstallato' AND Rilevazione.data BETWEEN '$data1' AND '$data2' ORDER BY Rilevazione.data DESC";
-    $result = mysqli_query($this->db, $query) or die("Query fallita");
+    $result = mysqli_query($this->db, $query);
     return self::creaRilevazione($result);
   }
 
@@ -92,7 +96,7 @@ class DAORilevazione {
 
   function getFromId($id) {
     $query = "SELECT * FROM Rilevazione WHERE id = '$id'";
-    $result = mysqli_query($this->db, $query) or die("Query fallita");
+    $result = mysqli_query($this->db, $query);
     $rilevazioni = self::creaRilevazione($result);
     return reset($rilevazioni);
   }
@@ -111,7 +115,7 @@ class DAORilevazione {
       VALUES (NULL, '$idSensoreInstallato', '$data', NULL, '$errore', '$messaggio')";
     }
 
-    $this->db->query($query) or die("Query fallita");
+    $this->db->query($query);
   }
 
   function delete($idRilevazione) {

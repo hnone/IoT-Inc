@@ -26,7 +26,7 @@ class DAOCliente {
 
   function getAll() {
     $query = "SELECT * FROM Cliente";
-    $result = mysqli_query($this->db, $query) or die("Query fallita");
+    $result = mysqli_query($this->db, $query);
     return self::creaCliente($result);
   }
 
@@ -51,14 +51,14 @@ class DAOCliente {
 
   function get($email, $password) {
     $query = "SELECT * FROM Cliente WHERE email = '$email' AND password = '$password'";
-    $result = mysqli_query($this->db, $query) or die("Query fallita");
+    $result = mysqli_query($this->db, $query);
     $clienti = self::creaCliente($result);
     return reset($clienti);
   }
 
   function getFromId($id) {
     $query = "SELECT * FROM Cliente WHERE id = '$id'";
-    $result = mysqli_query($this->db, $query) or die("Query fallita");
+    $result = mysqli_query($this->db, $query);
     $clienti = self::creaCliente($result);
     return reset($clienti);
   }

@@ -1,5 +1,5 @@
 <?php
-class SensoreInstallato {
+class SensoreInstallato implements JsonSerializable {
 
 	private	$id;
 	private	$nome;
@@ -7,10 +7,11 @@ class SensoreInstallato {
 	private	$idImpianto;
 	private $idAmbiente;
 
-	function __construct($nome, $idSensore, $idImpianto) {
+	function __construct($nome, $idSensore, $idImpianto, $idAmbiente) {
 		$this->nome = $nome;
 		$this->idSensore = $idSensore;
 		$this->idImpianto = $idImpianto;
+		$this->idAmbiente = $idAmbiente;
 	}
 
 	public function getId() { return $this->id; }
@@ -33,5 +34,14 @@ class SensoreInstallato {
 
   public function setIdAmbiente($idAmbiente) { $this->idAmbiente = $idAmbiente; }
 
+	public function jsonSerialize() {
+		return array(
+			'id'=>$this->id,
+			'nome'=>$this->nome,
+			'idSensore'=>$this->idSensore,
+			'idImpianto'=>$this->idImpianto,
+			'idAmbiente'=>$this->idAmbiente
+		);
+	}
 }
 ?>

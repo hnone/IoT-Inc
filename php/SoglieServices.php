@@ -1,0 +1,171 @@
+<?php
+include('session.php');
+include('Ambiente.php');
+include('DAOAmbiente.php');
+include('SensoreInstallato.php');
+include('DAOSensoreInstallato.php');
+include('DAOSogliaSensore.php');
+include('SogliaSensore.php');
+include('DAOSogliaAmbiente.php');
+include('SogliaAmbiente.php');
+include('DAOSensore.php');
+include('Sensore.php');
+
+
+if($_SERVER["REQUEST_METHOD"] == "POST") {
+  $postdata = file_get_contents("php://input");
+  $request = json_decode($postdata);
+  if ($request->cod == "getSensore") {
+    $DAOSensoreInstallato = new DAOSensoreInstallato();
+    $myString =
+    "<div class=\"mdl-card mdl-cell mdl-cell--12-col\">
+    <table class=\"mdl-data-table mdl-js-data-table\" id=\"impianti\" style=\"width: 100%;\">
+    <tbody>";
+    //getSensoriInstallati(impianto) IMPIANTOSERVICES
+      $sensoriInstallati = $DAOSensoreInstallato->getFromIdImpianto($request->id);
+      foreach ($sensoriInstallati as $j) {
+        $myString .=
+        "<tr>
+          <td class=\"mdl-data-table__cell--non-numeric\" ng-click=\"addSoglia('addSensore',".$j->getId().",'".$j->getNome()."')\">".$j->getNome()."</td>
+        </tr>";
+      }
+    //}
+    $myString .=
+    "</tbody>
+    </table>
+    </div>";
+  } else if ($request->cod == "getAmbiente") {
+      $DAOAmbiente = new DAOAmbiente();
+      $myString =
+      "<div class=\"mdl-card mdl-cell mdl-cell--12-col\">
+      <table class=\"mdl-data-table mdl-js-data-table\" id=\"impianti\" style=\"width: 100%;\">
+      <tbody>";
+      //getAmbienti(impianto) IMPIANTOSERVICES
+      $ambienti = $DAOAmbiente->getFromIdImpianto($request->id);
+        foreach ($ambienti as $j) {
+          $myString .=
+          "<tr>
+            <td class=\"mdl-data-table__cell--non-numeric\" ng-click=\"addSoglia('addAmbiente',".$j->getId().",'".$j->getNome()."')\">".$j->getNome()."</td>
+          </tr>";
+        }
+      $myString .=
+      "</tbody>
+      </table>
+      </div>";
+} else if ($request->cod == "getNomeSensore") {
+  //getSensore(sogliaSensore)
+  $DAOSensoreInstallato = new DAOSensoreInstallato();
+  $sensoreInstallato = $DAOSensoreInstallato->getFromId($request->id);
+  $myString = $sensoreInstallato->getNome();
+
+  } else if ($request->cod == "getNomeAmbiente") {
+    //getAmbiente(sogliaAmbiente)
+    $DAOAmbiente = new DAOAmbiente();
+    $ambiente = $DAOAmbiente->getFromId($request->id);
+    $myString = $ambiente->getNome();
+    } else if ($request->cod == "getSoglie") {
+      //getSoglieSensoreByImpianto(impianto)
+      //getSoglieAmbienteByImpianto(impianto)
+      $DAOSogliaSensore = new DAOSogliaSensore();
+      $DAOSogliaAmbiente = new DAOSogliaAmbiente();
+      $DAOAmbiente = new DAOAmbiente();
+      $DAOSensoreInstallato = new DAOSensoreInstallato();
+      $soglieSensore = $DAOSogliaSensore -> getFromIdImpianto($request->id);
+      $soglieAmbiente = $DAOSogliaAmbiente -> getFromIdImpianto($request->id);
+      $myString = "<section class=\"section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp\">
+        <div class=\"mdl-card mdl-cell mdl-cell--12-col\">
+          <div class=\"mdl-card__supporting-text mdl-grid mdl-grid--no-spacing\">
+            <h4 class=\"mdl-cell mdl-cell--12-col\">Soglie Sensori</h4>
+            </div>
+            <table class=\"mdl-data-table mdl-js-data-table\">
+            <thead>
+              <tr>
+                <th class=\"mdl-data-table__cell--non-numeric\">Nome</th>
+                <th class=\"mdl-data-table__cell--non-numeric\">Valore</th>
+                <th class=\"mdl-data-table__cell--non-numeric\">Sensore</th>
+              </tr>
+            </thead>
+            <tbody>";
+      foreach ($soglieSensore as $i) {
+        $toPass2 = htmlspecialchars(json_encode($i), ENT_QUOTES, 'UTF-8');
+        if ($i->getMaggiore() != null) {
+          $valoreSoglia = ">".$i->getMaggiore();
+        } else {
+          $valoreSoglia = "<".$i->getMinore();
+        }
+        $sensoreInstallato = $DAOSensoreInstallato -> getFromId($i->getIdSensoreInstallato());
+        $nomeSensoreInstallato = $sensoreInstallato -> getNome();
+
+        $myString .=
+        //"<tr ng-click=\"soglieList.editDialog(\$event,'".$i->getId()."','".$i->getNome()."','".$i->getCognome()."','".$i->getEmail()."')\">
+        "<tr ng-click=\"soglieList.editDialog(\$event,'modifica_sogliaSensore',".$toPass2.")\">
+          <td class=\"mdl-data-table__cell--non-numeric\">".$i->getNome()."</td>
+          <td class=\"mdl-data-table__cell--non-numeric\">".$valoreSoglia."</td>
+          <td class=\"mdl-data-table__cell--non-numeric\">".$nomeSensoreInstallato."</td>
+        </tr>";
+    }
+    $myString .=
+    "</tbody>
+      </table>
+      <button class=\"mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon\" id=\"add\" data-upgraded=\",MaterialButton,MaterialRipple\" ng-click=\"soglieList.addDialog(\$event, 'aggiungi_sogliaSensore')\">
+          <i class=\"material-icons\">add</i>
+      </button>
+    </div>
+    </section>";
+    $myString .=
+    "<section class=\"section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp\">
+      <div class=\"mdl-card mdl-cell mdl-cell--12-col\">
+        <div class=\"mdl-card__supporting-text mdl-grid mdl-grid--no-spacing\">
+          <h4 class=\"mdl-cell mdl-cell--12-col\">Soglie Ambiente</h4>
+          </div>
+          <table class=\"mdl-data-table mdl-js-data-table\">
+          <thead>
+            <tr>
+              <th class=\"mdl-data-table__cell--non-numeric\">Nome</th>
+              <th class=\"mdl-data-table__cell--non-numeric\">Valore</th>
+              <th class=\"mdl-data-table__cell--non-numeric\">Tipo</th>
+              <th class=\"mdl-data-table__cell--non-numeric\">Ambiente</th>
+            </tr>
+          </thead>
+          <tbody>";
+          foreach ($soglieAmbiente as $i) {
+            $toPass2 = htmlspecialchars(json_encode($i), ENT_QUOTES, 'UTF-8');
+            if ($i->getMaggiore() != null) {
+              $valoreSoglia = ">".$i->getMaggiore();
+            } else {
+              $valoreSoglia = "<".$i->getMinore();
+            }
+            $ambiente = $DAOAmbiente -> getFromId($i->getIdAmbiente());
+            $nomeAmbiente = $ambiente -> getNome();
+
+            $myString .=
+            "<tr ng-click=\"soglieList.editDialog(\$event, 'modifica_sogliaAmbiente',".$toPass2.")\">
+              <td class=\"mdl-data-table__cell--non-numeric\">".$i->getNome()."</td>
+              <td class=\"mdl-data-table__cell--non-numeric\">".$valoreSoglia."</td>
+              <td class=\"mdl-data-table__cell--non-numeric\">".$i->getTipo()."</td>
+              <td class=\"mdl-data-table__cell--non-numeric\">".$nomeAmbiente."</td>
+            </tr>";
+          }
+          $myString .=
+          "</tbody>
+              </table>
+              <button class=\"mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon\" id=\"add\" data-upgraded=\",MaterialButton,MaterialRipple\" ng-click=\"soglieList.addDialog(\$event,'aggiungi_sogliaAmbiente')\">
+                  <i class=\"material-icons\">add</i>
+              </button>
+            </div>
+            </section>";
+  } else if ($request->cod == "getNomeTipologie"){
+    $DAOSensoreInstallato = new DAOSensoreInstallato();
+    $DAOSensore = new DAOSensore();
+    $tipologie = array();
+    $sensoriInstallati = $DAOSensoreInstallato->getFromIdAmbiente($request->id);
+    foreach ($sensoriInstallati as $i) {
+        $sensore = $DAOSensore -> getFromId($i->getIdSensore());
+        array_push($tipologie, $sensore -> getTipo());
+    }
+    $tipologie_noDup = array_unique($tipologie);
+    $myString = json_encode($tipologie_noDup);
+  }
+}
+echo($myString);
+?>

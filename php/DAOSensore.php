@@ -24,13 +24,13 @@ class DAOSensore{
 
   function getAll() {
     $query = "SELECT * FROM Sensore";
-    $recordSet = mysqli_query($this->db, $query) or die("Query fallita") ;
+    $recordSet = mysqli_query($this->db, $query);
     return self::creaSensore($recordSet);
   }
 
   function getFromId($id) {
     $query = "SELECT * FROM Sensore WHERE id = '$id'";
-    $result = mysqli_query($this->db, $query) or die("Query fallita");
+    $result = mysqli_query($this->db, $query);
     $Sensori = self::creaSensore($result);
     return reset($Sensori);
   }
