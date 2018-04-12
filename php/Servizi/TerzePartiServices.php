@@ -3,11 +3,11 @@ include '../session.php';
 include '../DAO/DAOImpianto.php';
 include '../DAO/DAOAmbiente.php';
 include '../DAO/DAOSensoreInstallato.php';
-include('../DAO/DAOTerzaParte.php');
+include '../DAO/DAOTerzaParte.php';
 include '../Modelli/Impianto.php';
 include '../Modelli/Ambiente.php';
 include '../Modelli/SensoreInstallato.php';
-include('../Modelli/TerzaParte.php');
+include '../Modelli/TerzaParte.php';
 
 $DAOTerzaParte = new DAOTerzaParte();
 

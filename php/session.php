@@ -1,5 +1,5 @@
 <?php
-   include('config.php');
+   include 'config.php';
    session_start();
    $db = Database::getInstance()->getConnection();
    if (isset($_SESSION['id_cliente'])) {

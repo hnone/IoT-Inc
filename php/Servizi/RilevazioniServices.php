@@ -1,14 +1,14 @@
 <?php
-include('../session.php');
-include('../DAO/DAOAmbiente.php');
-include('../DAO/DAOSensoreInstallato.php');
-include('../DAO/DAOSensore.php');
-include('../DAO/DAORilevazione.php');
-include('../DAO/DAOViolazione.php');
-include('../Modelli/Ambiente.php');
-include('../Modelli/SensoreInstallato.php');
-include('../Modelli/Sensore.php');
-include('../Modelli/Rilevazione.php');
+include '../session.php';
+include '../DAO/DAOAmbiente.php';
+include '../DAO/DAOSensoreInstallato.php';
+include '../DAO/DAOSensore.php';
+include '../DAO/DAORilevazione.php';
+include '../DAO/DAOViolazione.php';
+include '../Modelli/Ambiente.php';
+include '../Modelli/SensoreInstallato.php';
+include '../Modelli/Sensore.php';
+include '../Modelli/Rilevazione.php';
 
 $DAOSensoreInstallato = new DAOSensoreInstallato();
 $DAOAmbiente = new DAOAmbiente();

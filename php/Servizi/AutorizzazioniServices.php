@@ -1,10 +1,10 @@
 <?php
-include('../session.php');
-include('../DAO/DAOAutorizzazione.php');
-include('../Modelli/TerzaParte.php');
-include('../Modelli/Impianto.php');
-include('../Modelli/Ambiente.php');
-include('../Modelli/SensoreInstallato.php');
+include '../session.php';
+include '../DAO/DAOAutorizzazione.php';
+include '../Modelli/TerzaParte.php';
+include '../Modelli/Impianto.php';
+include '../Modelli/Ambiente.php';
+include '../Modelli/SensoreInstallato.php';
 $DAOAutorizzazione = new DAOAutorizzazione();
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $postdata = file_get_contents("php://input");

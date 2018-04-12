@@ -1,9 +1,9 @@
 <?php
-include('php/session.php');
-include('DAOCliente.php');
-include('Cliente.php');
-include('DAOImpianto.php');
-include('Impianto.php');
+include 'php/session.php';
+include 'DAOCliente.php';
+include 'Cliente.php';
+include '/DAO/DAOImpianto.php';
+include '/Modelli/Impianto.php';
 
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $myusername = mysqli_real_escape_string($db, $_POST['username']);
