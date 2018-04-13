@@ -27,7 +27,7 @@ app.controller('SensoriCtrl', function($scope, $mdDialog, $mdMedia, $http, $rout
         },
       })
       .then(function(answer) {
-        $http.post('/sensori.php', {
+        $http.post('../php/Servizi/ServizioSensore.php', {
           cod: "add",
           marca: answer.marca,
           modello: answer.modello,
@@ -96,7 +96,7 @@ app.controller('SensoriCtrl', function($scope, $mdDialog, $mdMedia, $http, $rout
             console.log($cod);
             console.log(angular.fromJson(_sensore).id);
             //console.log(answer);
-            $http.post('/sensori.php', {
+            $http.post('../php/Servizi/ServizioSensore.php', {
               cod: $cod,
               id: angular.fromJson(_sensore).id,
               marca: answer.marca,
