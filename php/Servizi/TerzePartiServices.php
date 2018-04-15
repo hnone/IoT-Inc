@@ -17,7 +17,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($request->cod == "add") {
         $DAOTerzaParte -> insert(new TerzaParte($request->nome, $request->cognome, $request->email, $request->tempo, $id_cliente));
     } elseif ($request->cod == "edit") {
-        $DAOTerzaParte -> update($request->id, $request->nome, $request->cognome, $request->email, $request->tempo);
+        $toUpdate = new TerzaParte($request->nome, $request->cognome, $request->email, $request->tempo, $id_cliente);
+        $toUpdate -> setId($request->id);
+        $DAOTerzaParte -> update($toUpdate);
     } elseif ($request->cod == "remove") {
         $DAOTerzaParte -> delete($request->id);
     } elseif ($request->cod == "getImpianto") {

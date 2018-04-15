@@ -8,14 +8,12 @@ require_once 'SogliaAmbiente.php';
 class DAOViolazione
 {
     private $db;
-    private $daoSogliaSensore;
-    private $daoSogliaAmbiente;
+    private $daoSogliaSensore = new DAOSogliaSensore();
+    private $daoSogliaAmbiente = new DAOSogliaAmbiente();
 
     public function __construct()
     {
         $this->db = Database::getInstance()->getConnection();
-        $this->daoSogliaSensore = new DAOSogliaSensore();
-        $this->daoSogliaAmbiente = new DAOSogliaAmbiente();
     }
 
     public function getSoglieSensoreViolate($idRilevazione)

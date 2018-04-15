@@ -17,7 +17,7 @@ class ServizioSensore {
     $this->DAOSensore -> edit($sensore);
   }
   function getAll() {
-    return $this->DAOSensore -> getAll($sensore);
+    return $this->DAOSensore -> getAll();
   }
 }
 

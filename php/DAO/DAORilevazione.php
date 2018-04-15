@@ -7,16 +7,13 @@ require_once 'DAOSensoreInstallato.php';
 class DAORilevazione
 {
     private $db;
-    private $daoImpianto;
-    private $daoAmbiente;
-    private $daoSensoreInstallato;
+    private $daoImpianto = new DAOImpianto();
+    private $daoAmbiente = new DAOAmbiente();
+    private $daoSensoreInstallato = new DAOSensoreInstallato();
 
     public function __construct()
     {
         $this->db = Database::getInstance()->getConnection();
-        $this->daoImpianto = new DAOImpianto();
-        $this->daoAmbiente = new DAOAmbiente();
-        $this->daoSensoreInstallato = new DAOSensoreInstallato();
     }
 
     public function update($rilevazione)

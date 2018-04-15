@@ -1,12 +1,10 @@
 <?php
 class FileWriter
 {
-    private $path;
     private $file;
 
     public function __construct($path)
     {
-        $this->path = $path;
         $this->file = fopen($path, "w");
     }
 
