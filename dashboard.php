@@ -3,39 +3,31 @@ include 'php/session.php';
 ?>
 <html lang="it" ng-app="MyApp">
   <head>
-    <!--<base href="/">-->
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Dashboard - IoT Inc.</title>
 
-    <!-- Disable tap highlight on IE -->
     <meta name="msapplication-tap-highlight" content="no">
 
-    <!-- Add to homescreen for Chrome on Android -->
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="application-name" content="IoT Inc.">
     <link rel="icon" sizes="192x192" href="images/touch/chrome-touch-icon-192x192.png">
 
-    <!-- Add to homescreen for Safari on iOS -->
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta name="apple-mobile-web-app-title" content="Iot Inc.">
     <link rel="apple-touch-icon" href="images/touch/apple-touch-icon.png">
 
-    <!-- Tile icon for Win8 (144x144 + tile color) -->
     <meta name="msapplication-TileImage" content="images/touch/ms-touch-icon-144x144-precomposed.png">
     <meta name="msapplication-TileColor" content="#38405f">
 
-    <!-- Color the status bar on mobile devices -->
     <meta name="theme-color" content="#38405f">
 
-    <!-- Material Design icons -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <script>document.write('<base href="' + document.location + '" />');</script>
 
-    <!-- Material Design Lite page styles -->
     <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.css">
     <link rel="stylesheet" href = "css/material.css">
     <script src = "/js/material.js"></script>
@@ -55,12 +47,18 @@ include 'php/session.php';
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-datetimepicker/2.7.1/js/bootstrap-material-datetimepicker.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.5.10/js/ripples.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.5.10/js/material.min.js"></script>
-    <!-- Angular Material Library -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-material/1.1.8/angular-material.js"></script>
 
-    <!-- Your styles -->
     <link rel="stylesheet" href="css/dash.css">
     <script src = "app.js"></script>
+    <script src = "/js/chooseCtrl.js"></script>
+    <script src = "/js/clientiCtrl.js"></script>
+    <script src = "/js/homeCtrl.js"></script>
+    <script src = "/js/impiantiCtrl.js"></script>
+    <script src = "/js/rilevazioniCtrl.js"></script>
+    <script src = "/js/sensoriCtrl.js"></script>
+    <script src = "/js/soglieCtrl.js"></script>
+    <script src = "/js/terzePartiCtrl.js"></script>
 
   </head>
   <body class="mdl-demo mdl-color--grey-100 mdl-color-text--grey-700 mdl-base" ng-controller="MainCtrl">
@@ -94,10 +92,15 @@ include 'php/session.php';
       <div class="mdl-layout__drawer mine" id="drawer">
         <span class="mdl-layout-title">Title</span>
         <nav class="mdl-navigation">
-          <a class="mdl-navigation__link" href="">Link</a>
-          <a class="mdl-navigation__link" href="">Link</a>
-          <a class="mdl-navigation__link" href="">Link</a>
-          <a class="mdl-navigation__link" href="">Link</a>
+          <a href="#/home" style="display:{{both2()}};" class="mdl-navigation__link" ng-class="{isactive: $route.current.map == 'home'}">{{both()}}</a>
+          <a href="#/soglie" style="display:{{both3()}};" class="mdl-navigation__link" ng-class="{isactive: $route.current.map == 'soglie'}">{{both1()}}</a>
+          <a href="#/terzeParti" class="mdl-navigation__link" ng-class="{isactive: $route.current.map == 'terzeParti'}">Terze Parti</a>
+          <?php } else {?>
+          <a href="#/clienti" class="mdl-navigation__link" ng-class="{isactive: $route.current.map == 'clienti'}">Clienti</a>
+          <a href="#/impianti" class="mdl-navigation__link" ng-class="{isactive: $route.current.map == 'impianti'}">Impianti</a>
+          <a href="#/sensori" class="mdl-navigation__link" ng-class="{isactive: $route.current.map == 'sensori'}">Sensori</a>
+          <?php } ?>
+          <a href="/php/logout.php" class="mdl-navigation__link">Logout</a>
         </nav>
       </div>
       <div id="we" ng-view></div>
